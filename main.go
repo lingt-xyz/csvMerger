@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"strings"
 )
 
 type csvRow struct {
@@ -22,6 +23,9 @@ type csvRow struct {
 }
 
 func newRow(records []string) *csvRow {
+	fnName := records[7]
+	fnName = strings.TrimSuffix(fnName, ".so")
+	fnName = strings.Split(fnName, ".so.")[0]
 	return &csvRow{
 		LibraryName:  records[0],
 		Version:      records[1],
@@ -57,6 +61,7 @@ func main() {
 		"Version", "Architecture", "Compiler", "Optimization", "Obfuscation", "EdgeCoverage",
 	})
 	defer writer.Flush()
+
 	for libraryName, binaryMapArm := range libraryMapArm {
 		// find all binaries in the same library
 		binaryMapX86, ok := libraryMapX86[libraryName]
