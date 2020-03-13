@@ -23,13 +23,13 @@ type csvRow struct {
 }
 
 func newRow(records []string) *csvRow {
-	fnName := records[7]
-	fnName = strings.TrimSuffix(fnName, ".so")
-	fnName = strings.Split(fnName, ".so.")[0]
+	binaryName := records[2]
+	binaryName = strings.TrimSuffix(binaryName, ".so")
+	binaryName = strings.Split(binaryName, ".so.")[0]
 	return &csvRow{
 		LibraryName:  records[0],
 		Version:      records[1],
-		BinaryName:   records[2],
+		BinaryName:   binaryName,
 		Architecture: records[3],
 		Compiler:     records[4],
 		Optimization: records[5],
