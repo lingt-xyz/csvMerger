@@ -86,8 +86,8 @@ func main() {
 							fnsX86[j].Version, fnsX86[j].Architecture, fnsX86[j].Compiler, fnsX86[j].Optimization, fnsX86[j].Obfuscation, fnsX86[j].EdgeCoverage,
 						})
 					}
+					writer.Flush()
 				}
-				writer.Flush()
 			}
 		}
 	}
