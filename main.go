@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/csv"
+	"flag"
 	"io"
 	"log"
 	"os"
@@ -42,8 +43,11 @@ func main() {
 	//		--- function name
 	//			--- []csvRow
 
-	libraryMapArm := getMap("ARM.csv_1000")
-	libraryMapX86 := getMap("X86.csv_1000")
+	f1 := flag.String("f1", "ARM.csv", "first file to be merged with the second file")
+	f2 := flag.String("f2", "X86.csv", "second file to be merged with the first file")
+
+	libraryMapArm := getMap(*f1)
+	libraryMapX86 := getMap(*f2)
 
 	file, _ := os.Create("fn2fn.csv")
 	defer file.Close()

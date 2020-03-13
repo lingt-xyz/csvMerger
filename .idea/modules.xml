@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/csvMerger.iml" filepath="$PROJECT_DIR$/.idea/csvMerger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/goCsvMerger.iml" filepath="$PROJECT_DIR$/.idea/goCsvMerger.iml" />
     </modules>
   </component>
 </project>
