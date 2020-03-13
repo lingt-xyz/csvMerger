@@ -48,6 +48,7 @@ func main() {
 
 	f1 := flag.String("f1", "ARM.csv", "first file to be merged with the second file")
 	f2 := flag.String("f2", "X86.csv", "second file to be merged with the first file")
+	flag.Parse()
 
 	libraryMapArm := getMap(*f1)
 	libraryMapX86 := getMap(*f2)
@@ -86,8 +87,8 @@ func main() {
 							fnsX86[j].Version, fnsX86[j].Architecture, fnsX86[j].Compiler, fnsX86[j].Optimization, fnsX86[j].Obfuscation, fnsX86[j].EdgeCoverage,
 						})
 					}
+					writer.Flush()
 				}
-				writer.Flush()
 			}
 		}
 	}
