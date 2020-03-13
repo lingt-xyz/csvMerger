@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"strings"
 )
 
 type csvRow struct {
@@ -32,7 +31,7 @@ func newRow(records []string) *csvRow {
 		Optimization: records[5],
 		Obfuscation:  records[6],
 		FunctionName: records[7],
-		EdgeCoverage: strings.TrimSpace(records[8]),
+		EdgeCoverage: records[8],
 		CallWalks:    records[9],
 	}
 }
