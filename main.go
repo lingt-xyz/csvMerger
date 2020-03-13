@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/csv"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -43,15 +42,53 @@ func main() {
 	//		--- function name
 	//			--- []csvRow
 
-	mapArm := getMap("ARM.csv_1000")
-	mapX86 := getMap("X86.csv_1000")
-	fmt.Printf("%v, %v", len(mapArm), len(mapX86))
+	libraryMapArm := getMap("ARM.csv_1000")
+	libraryMapX86 := getMap("X86.csv_1000")
+
+	file, _ := os.Create("fn2fn.csv")
+	defer file.Close()
+
+	writer := csv.NewWriter(file)
+	_ = writer.Write([]string{"LibraryName", "BinaryName", "FunctionName",
+		"Version", "Architecture", "Compiler", "Optimization", "Obfuscation", "EdgeCoverage",
+		"Version", "Architecture", "Compiler", "Optimization", "Obfuscation", "EdgeCoverage",
+	})
+	defer writer.Flush()
+	for libraryName, binaryMapArm := range libraryMapArm {
+		// find all binaries in the same library
+		binaryMapX86, ok := libraryMapX86[libraryName]
+		if !ok {
+			continue
+		}
+		for binaryName, functionMapArm := range binaryMapArm {
+			// find all function in the same binary
+			functionMapX86, ok := binaryMapX86[binaryName]
+			if !ok {
+				continue
+			}
+			for fnName, fnsArm := range functionMapArm {
+				fnsX86, ok := functionMapX86[fnName]
+				if !ok {
+					continue
+				}
+				for i := range fnsArm {
+					for j := range fnsX86 {
+						_ = writer.Write([]string{fnsArm[i].LibraryName, fnsArm[i].BinaryName, fnsArm[i].FunctionName,
+							fnsArm[i].Version, fnsArm[i].Architecture, fnsArm[i].Compiler, fnsArm[i].Optimization, fnsArm[i].Obfuscation, fnsArm[i].EdgeCoverage,
+							fnsX86[j].Version, fnsX86[j].Architecture, fnsX86[j].Compiler, fnsX86[j].Optimization, fnsX86[j].Obfuscation, fnsX86[j].EdgeCoverage,
+						})
+					}
+				}
+				writer.Flush()
+			}
+		}
+	}
 }
 
 func getMap(fileName string) map[string]map[string]map[string][]*csvRow {
 	functionMap := make(map[string]map[string]map[string][]*csvRow, 1<<10)
 
-	f, _ := os.Open("ARM_10000.csv")
+	f, _ := os.Open(fileName)
 	defer f.Close() // this needs to be after the err check
 
 	reader := csv.NewReader(f)
@@ -68,14 +105,13 @@ func getMap(fileName string) map[string]map[string]map[string][]*csvRow {
 		if functionMap[row.LibraryName] == nil {
 			functionMap[row.LibraryName] = map[string]map[string][]*csvRow{}
 		}
-		if functionMap[row.LibraryName][row.BinaryName] == nil{
+		if functionMap[row.LibraryName][row.BinaryName] == nil {
 			functionMap[row.LibraryName][row.BinaryName] = map[string][]*csvRow{}
 		}
 		if functionMap[row.LibraryName][row.BinaryName][row.FunctionName] == nil {
 			functionMap[row.LibraryName][row.BinaryName][row.FunctionName] = []*csvRow{}
 		}
 		functionMap[row.LibraryName][row.BinaryName][row.FunctionName] = append(functionMap[row.LibraryName][row.BinaryName][row.FunctionName], row)
-		fmt.Printf("%+v", row.LibraryName)
 	}
 	return functionMap
 }
