@@ -58,8 +58,8 @@ func main() {
 
 	writer := csv.NewWriter(file)
 	_ = writer.Write([]string{"LibraryName", "BinaryName", "FunctionName",
-		"Version1", "Architecture1", "Compiler1", "Optimization1", "Obfuscation1", "EdgeCoverage1",
-		"Version2", "Architecture2", "Compiler2", "Optimization2", "Obfuscation2", "EdgeCoverage2",
+		"Version", "Architecture", "Compiler", "Optimization", "Obfuscation", "EdgeCoverage",
+		"Version", "Architecture", "Compiler", "Optimization", "Obfuscation", "EdgeCoverage",
 	})
 	defer writer.Flush()
 
