@@ -2,8 +2,6 @@ package binShape
 
 import (
 	"encoding/csv"
-	"flag"
-	"github.com/lingt-xyz/goCsvMerger/fn2fn"
 	"io"
 	"io/ioutil"
 	"log"
@@ -49,15 +47,15 @@ func newBinShapeRow(records []string) *binShapeRow {
 }
 
 func mergeBinShapeAndVex() {
-	dir := flag.String("dir", "", "dir that contains all BinShape CSV files")
-	f1 := flag.String("f1", "ARM.csv", "VEX ARM CSV file to be merged")
-	f2 := flag.String("f2", "X86.csv", "VEX X86 CSV file to be merged")
-
-	flag.Parse()
-
-	binShapeMap := getBinShapeMap(*dir)
-	vexArmMap := getVexMap(*f1)
-	vexX86Map := getVexMap(*f2)
+	//dir := flag.String("dir", "", "dir that contains all BinShape CSV files")
+	//f1 := flag.String("f1", "ARM.csv", "VEX ARM CSV file to be merged")
+	//f2 := flag.String("f2", "X86.csv", "VEX X86 CSV file to be merged")
+	//
+	//flag.Parse()
+	//
+	//binShapeMap := getBinShapeMap(*dir)
+	//vexArmMap := getVexMap(*f1)
+	//vexX86Map := getVexMap(*f2)
 }
 
 func getBinShapeMap(dir string) map[binary][][]string {

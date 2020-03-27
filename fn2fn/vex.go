@@ -128,7 +128,7 @@ func RemoveEmptyFields() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		if record[9] != "" && record[14] != "" {
+		if record[8] != "" && record[14] != "" {
 			_ = writer.Write(record)
 			writer.Flush()
 		}
