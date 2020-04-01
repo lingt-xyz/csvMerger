@@ -94,47 +94,6 @@ func MapFunctionsX86AndArm() {
 	}
 }
 
-func RemoveEmptyFields() {
-	input := flag.String("input", "fn2fn.csv", "CSV file whose empty fields to be removed")
-	output := flag.String("output", "X86.csv", "CSV file that has filtered empty fields")
-	flag.Parse()
-
-	inputCSV, err := os.Open(*input)
-	if err != nil {
-		log.Fatalf("Cannot open file %v, got error: %v", *input, err)
-	}
-	defer inputCSV.Close() // this needs to be after the err check
-
-	outputCSV, err := os.Create(*output)
-	if err != nil {
-		log.Fatalf("Cannot open file %v, got error: %v", *output, err)
-	}
-	defer outputCSV.Close()
-
-	writer := csv.NewWriter(outputCSV)
-	_ = writer.Write([]string{"libraryName", "binaryName", "functionName",
-		"version", "architecture", "compiler", "optimization", "obfuscation", "edgeCoverage",
-		"version", "architecture", "compiler", "optimization", "obfuscation", "edgeCoverage",
-	})
-	defer writer.Flush()
-
-	reader := csv.NewReader(inputCSV)
-	_, _ = reader.Read() // skip headers
-	for {
-		record, err := reader.Read()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			log.Fatal(err)
-		}
-		if record[8] != "" && record[14] != "" {
-			_ = writer.Write(record)
-			writer.Flush()
-		}
-	}
-}
-
 func getVexMap(fileName string) map[string]map[string]map[string][]*vexRow {
 	functionMap := make(map[string]map[string]map[string][]*vexRow, 1<<10)
 
