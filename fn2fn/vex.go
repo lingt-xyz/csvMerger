@@ -84,7 +84,7 @@ func MapFunctionsX86AndArm() {
 					for j := range fnsX86 {
 						_ = writer.Write([]string{fnsArm[i].libraryName, fnsArm[i].binaryName, fnsArm[i].functionName,
 							fnsArm[i].version, fnsArm[i].architecture, fnsArm[i].compiler, fnsArm[i].optimization, fnsArm[i].obfuscation, fnsArm[i].edgeCoverage, fnsArm[i].callWalks,
-							fnsX86[j].version, fnsX86[j].architecture, fnsX86[j].compiler, fnsX86[j].optimization, fnsX86[j].obfuscation, fnsX86[j].edgeCoverage, fnsX86[i].callWalks,
+							fnsX86[j].version, fnsX86[j].architecture, fnsX86[j].compiler, fnsX86[j].optimization, fnsX86[j].obfuscation, fnsX86[j].edgeCoverage, fnsX86[j].callWalks,
 						})
 					}
 					writer.Flush()
