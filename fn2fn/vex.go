@@ -58,8 +58,8 @@ func MapFunctionsX86AndArm() {
 
 	writer := csv.NewWriter(file)
 	_ = writer.Write([]string{"libraryName", "binaryName", "functionName",
-		"version", "architecture", "compiler", "optimization", "obfuscation", "edgeCoverage",
-		"version", "architecture", "compiler", "optimization", "obfuscation", "edgeCoverage",
+		"version", "architecture", "compiler", "optimization", "obfuscation", "edgeCoverage", "callWalks",
+		"version", "architecture", "compiler", "optimization", "obfuscation", "edgeCoverage", "callWalks",
 	})
 	defer writer.Flush()
 
@@ -83,8 +83,8 @@ func MapFunctionsX86AndArm() {
 				for i := range fnsArm {
 					for j := range fnsX86 {
 						_ = writer.Write([]string{fnsArm[i].libraryName, fnsArm[i].binaryName, fnsArm[i].functionName,
-							fnsArm[i].version, fnsArm[i].architecture, fnsArm[i].compiler, fnsArm[i].optimization, fnsArm[i].obfuscation, fnsArm[i].edgeCoverage,
-							fnsX86[j].version, fnsX86[j].architecture, fnsX86[j].compiler, fnsX86[j].optimization, fnsX86[j].obfuscation, fnsX86[j].edgeCoverage,
+							fnsArm[i].version, fnsArm[i].architecture, fnsArm[i].compiler, fnsArm[i].optimization, fnsArm[i].obfuscation, fnsArm[i].edgeCoverage, fnsArm[i].callWalks,
+							fnsX86[j].version, fnsX86[j].architecture, fnsX86[j].compiler, fnsX86[j].optimization, fnsX86[j].obfuscation, fnsX86[j].edgeCoverage, fnsX86[i].callWalks,
 						})
 					}
 					writer.Flush()
