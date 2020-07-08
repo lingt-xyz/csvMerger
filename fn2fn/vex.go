@@ -10,6 +10,7 @@ import (
 )
 
 type vexRow struct {
+	functionID   string
 	libraryName  string
 	version      string
 	binaryName   string
@@ -33,6 +34,22 @@ func newVexRow(records []string) *vexRow {
 		architecture: records[3],
 		compiler:     records[4],
 		optimization: records[5],
+		obfuscation:  records[6],
+		functionName: records[7],
+		edgeCoverage: records[8],
+		callWalks:    records[9],
+	}
+}
+
+func newVexRow2(records []string) *vexRow {
+	return &vexRow{
+		functionID:   records[0],
+		libraryName:  records[1],
+		version:      records[2],
+		binaryName:   records[3],
+		architecture: records[4],
+		compiler:     records[5],
+		optimization: "",
 		obfuscation:  records[6],
 		functionName: records[7],
 		edgeCoverage: records[8],
@@ -113,7 +130,7 @@ func getVexMap(fileName string) map[string]map[string]map[string][]*vexRow {
 		if err != nil {
 			log.Fatal(err)
 		}
-		row := newVexRow(record)
+		row := newVexRow2(record)
 		if functionMap[row.libraryName] == nil {
 			functionMap[row.libraryName] = map[string]map[string][]*vexRow{}
 		}
