@@ -1,3 +1,7 @@
+# Deprecated
+
+Use `goTool`
+
 # csvMerger
 
 Merge CSV files.
